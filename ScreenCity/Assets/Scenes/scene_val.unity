@@ -227,7 +227,7 @@ GameObject:
   - component: {fileID: 459950484}
   - component: {fileID: 459950483}
   - component: {fileID: 459950486}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -395,7 +395,7 @@ GameObject:
   - component: {fileID: 1141537516}
   - component: {fileID: 1141537515}
   - component: {fileID: 1141537514}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -684,6 +684,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cube
       objectReference: {fileID: 0}
+    - target: {fileID: 8981549123760722226, guid: fe9902393f538c94aa7765495930e661,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d96c00259e4a22d428881b9e442b542c, type: 2}
     - target: {fileID: 8981549123760722236, guid: fe9902393f538c94aa7765495930e661,
         type: 3}
       propertyPath: m_LocalPosition.x
