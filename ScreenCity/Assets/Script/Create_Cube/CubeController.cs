@@ -40,11 +40,10 @@ public class CubeController : MonoBehaviour
         FRight = new Face(lst_nRightVert, Vector3.right);
         FLeft = new Face(lst_nLeftVert, Vector3.left);
 
-        ChangeScale(FBot, 5);
 
         //transform.localRotation = Quaternion.Euler(0, 90, 90);
         //GetCenter();
-        transform.RotateAround(GetComponent<MeshFilter>().mesh.bounds.center, Vector3.forward, 90);
+        //transform.RotateAround(GetComponent<MeshFilter>().mesh.bounds.center, Vector3.up, 90);
     
     }
 
