@@ -15,16 +15,20 @@ public class MouseLook : MonoBehaviour
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
-        xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+        if (Cursor.lockState == CursorLockMode.Locked) {
 
-        transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-        transform.parent.Rotate(Vector3.up * mouseX);
+            xRotation -= mouseY;
+            xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
+            transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+            transform.parent.Rotate(Vector3.up * mouseX);
+        }
 
-
-        if (Input.GetKeyDown(KeyCode.Escape)) {
-            Cursor.lockState = CursorLockMode.None;
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            if (Cursor.lockState == CursorLockMode.None)
+                Cursor.lockState = CursorLockMode.Locked;
+            else
+                Cursor.lockState = CursorLockMode.None;
         }
     }
 }

@@ -30,15 +30,19 @@ public class PlayerController : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
+
+        // Do nothing when the Cursor isn't locked
+        if (Cursor.lockState == CursorLockMode.None)
+            return;
+
+
         #region Cube Preview
         if (Physics.Raycast(ray, out hit, 100) && (hit.transform.name == PLAN_NAME || hit.transform.tag == BUILDING_TAG_NAME)) {
             previewCube.SetActive(true);
-            previewCube.transform.position = hit.point + new Vector3(0, cube.transform.localScale.y / 2, 0);
+            previewCube.transform.position = hit.point + new Vector3(0, previewCube.transform.localScale.y / 2, 0);
         } else {
             previewCube.SetActive(false);
         }
-
-
         #endregion
 
         #region Movement manager
@@ -57,7 +61,8 @@ public class PlayerController : MonoBehaviour
             if (Physics.Raycast(ray, out hit, 100)) {
                 if (hit.transform.name == PLAN_NAME || hit.transform.tag == BUILDING_TAG_NAME) {
                     Vector3 cubePos = hit.point;
-                    GameObject go = Instantiate(cube, cubePos + new Vector3(0, cube.transform.localScale.y / 2, 0), Quaternion.identity, buildingsGameObject.transform);
+                    GameObject go = Instantiate(cube, cubePos + new Vector3(0, previewCube.transform.localScale.y / 2, 0), Quaternion.identity, buildingsGameObject.transform);
+                    go.transform.localScale = previewCube.transform.localScale;
                 }
             }
         }
