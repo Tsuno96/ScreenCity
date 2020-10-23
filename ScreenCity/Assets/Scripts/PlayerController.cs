@@ -27,14 +27,9 @@ public class PlayerController : MonoBehaviour
     }
 
     void Update() {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
         RaycastHit hit;
-
-
-        // Do nothing when the Cursor isn't locked
-        if (Cursor.lockState == CursorLockMode.None)
-            return;
-
 
         #region Cube Preview
         if (Physics.Raycast(ray, out hit, 100) && (hit.transform.name == PLAN_NAME || hit.transform.tag == BUILDING_TAG_NAME)) {
@@ -45,28 +40,33 @@ public class PlayerController : MonoBehaviour
         }
         #endregion
 
-        #region Movement manager
+        // Do not read user input when the Cursor isn't locked
+        if (Cursor.lockState == CursorLockMode.Locked) {
 
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
+            #region Movement manager
 
-        Vector3 move = transform.right * x + camera.transform.forward * z;
+            float x = Input.GetAxis("Horizontal");
+            float z = Input.GetAxis("Vertical");
 
-        controller.Move(move * Time.deltaTime * speed);
+            Vector3 move = transform.right * x + transform.forward * z + transform.up * -Input.mouseScrollDelta.y * 3;
 
-        #endregion
+            controller.Move(move * Time.deltaTime * speed);
 
-        #region Click manager
-        if (Input.GetMouseButtonDown(0)) {
-            if (Physics.Raycast(ray, out hit, 100)) {
-                if (hit.transform.name == PLAN_NAME || hit.transform.tag == BUILDING_TAG_NAME) {
-                    Vector3 cubePos = hit.point;
-                    GameObject go = Instantiate(cube, cubePos + new Vector3(0, previewCube.transform.localScale.y / 2, 0), Quaternion.identity, buildingsGameObject.transform);
-                    go.transform.localScale = previewCube.transform.localScale;
+            #endregion
+
+            #region Click manager
+            if (Input.GetMouseButtonDown(0)) {
+                if (Physics.Raycast(ray, out hit, 100)) {
+                    if (hit.transform.name == PLAN_NAME || hit.transform.tag == BUILDING_TAG_NAME) {
+                        Vector3 cubePos = hit.point;
+                        GameObject go = Instantiate(cube, cubePos + new Vector3(0, previewCube.transform.localScale.y / 2, 0), Quaternion.identity, buildingsGameObject.transform);
+                        go.transform.localScale = previewCube.transform.localScale;
+                    }
                 }
             }
+            #endregion
+        
         }
-        #endregion
     }
 
     private void UpdateCubeSize(Vector3 size) {
