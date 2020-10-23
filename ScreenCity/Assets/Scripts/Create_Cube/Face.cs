@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Assets.Script.Create_Cube
 {
-    class Face
+    public class Face
     {
         public List<int> iVertices;
         public Vector3 axes;

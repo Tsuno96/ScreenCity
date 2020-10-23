@@ -1,14 +1,15 @@
-﻿using System.Collections;
+﻿using Assets.Script.Create_Cube;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerController : MonoBehaviour
-{
+public class PlayerController : MonoBehaviour {
     private const string PLAN_NAME = "Plan";
     private const string BUILDING_TAG_NAME = "Building";
+
 
     public GameObject cube;
 
@@ -28,8 +29,8 @@ public class PlayerController : MonoBehaviour
     }
 
     void Update() {
-        //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        //Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
         RaycastHit hit;
 
         #region Cube Preview
@@ -42,7 +43,7 @@ public class PlayerController : MonoBehaviour
         #endregion
 
         // Do not read user input when the Cursor isn't locked
-        if (Cursor.lockState == CursorLockMode.Locked) {
+        //if (Cursor.lockState == CursorLockMode.Locked) {
 
             #region Movement manager
 
@@ -64,16 +65,25 @@ public class PlayerController : MonoBehaviour
                         go.transform.localScale = previewCube.transform.localScale;
                     }
                 }
+            } else if (Input.GetMouseButtonDown(1)) {
+                if (Physics.Raycast(ray, out hit, 100)) {
+                    if (hit.transform.tag == BUILDING_TAG_NAME) {
+                        CubeController cc = hit.transform.gameObject.GetComponent<CubeController>();
+                        if (cc != null) {
+                            Face f = cc.GetFaceWithNormal(hit.normal);
+                            cc.ChangeScale(f, 0.5f);
+                        }
+                    }
+                }
             }
             #endregion
-        
-        }
+
+        //}
     }
 
     private void UpdateCubeSize(Vector3 size) {
         previewCube.transform.localScale = size;
     }
-
     public void Slider_changeCubeSize(Slider slider) {
         UpdateCubeSize(new Vector3(slider.value, slider.value, slider.value));
     }
