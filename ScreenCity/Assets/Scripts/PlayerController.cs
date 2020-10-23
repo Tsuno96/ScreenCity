@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
         RaycastHit hit;
 
         #region Cube Preview
-        if (Physics.Raycast(ray, out hit, 100) && hit.transform.name == PLAN_NAME) {
+        if (Physics.Raycast(ray, out hit, 100) && (hit.transform.name == PLAN_NAME || hit.transform.tag == BUILDING_TAG_NAME)) {
             previewCube.SetActive(true);
             previewCube.transform.position = hit.point + new Vector3(0, cube.transform.localScale.y / 2, 0);
         } else {
@@ -55,14 +55,29 @@ public class PlayerController : MonoBehaviour
         #region Click manager
         if (Input.GetMouseButtonDown(0)) {
             if (Physics.Raycast(ray, out hit, 100)) {
-                if (hit.transform.name == PLAN_NAME) {
+                if (hit.transform.name == PLAN_NAME || hit.transform.tag == BUILDING_TAG_NAME) {
                     Vector3 cubePos = hit.point;
                     GameObject go = Instantiate(cube, cubePos + new Vector3(0, cube.transform.localScale.y / 2, 0), Quaternion.identity, buildingsGameObject.transform);
-                } else if (hit.transform.tag == BUILDING_TAG_NAME) {
-
                 }
             }
         }
         #endregion
+    }
+
+    private void UpdateCubeSize(Vector3 size) {
+        previewCube.transform.localScale = size;
+    }
+
+    public void SetCubeSmall() {
+        Debug.Log("Small");
+        UpdateCubeSize(new Vector3(0.5f, 0.5f, 0.5f));
+    }
+    public void SetCubeNormal() {
+        Debug.Log("Normal");
+        UpdateCubeSize(new Vector3(1f, 1f, 1f));
+    }
+    public void SetCubeLarge() {
+        Debug.Log("Large");
+        UpdateCubeSize(new Vector3(2f, 2f, 2f));
     }
 }
