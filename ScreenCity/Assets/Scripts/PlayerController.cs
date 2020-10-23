@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEditor.UIElements;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -73,16 +74,16 @@ public class PlayerController : MonoBehaviour
         previewCube.transform.localScale = size;
     }
 
-    public void SetCubeSmall() {
-        Debug.Log("Small");
+    public void Slider_changeCubeSize(Slider slider) {
+        UpdateCubeSize(new Vector3(slider.value, slider.value, slider.value));
+    }
+    public void Button_SetCubeSmall() {
         UpdateCubeSize(new Vector3(0.5f, 0.5f, 0.5f));
     }
-    public void SetCubeNormal() {
-        Debug.Log("Normal");
+    public void Button_SetCubeNormal() {
         UpdateCubeSize(new Vector3(1f, 1f, 1f));
     }
-    public void SetCubeLarge() {
-        Debug.Log("Large");
+    public void Button_SetCubeLarge() {
         UpdateCubeSize(new Vector3(2f, 2f, 2f));
     }
 }
