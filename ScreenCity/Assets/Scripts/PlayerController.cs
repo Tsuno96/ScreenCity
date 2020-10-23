@@ -19,6 +19,10 @@ public class PlayerController : MonoBehaviour
 
     private GameObject previewCube;
 
+    public GameObject selectedObject;
+    public Color m_OriginalColor;
+    Color m_MouseOverColor = Color.red;
+
     void Start() {
         previewCube = Instantiate(cube, buildingsGameObject.transform);
         previewCube.layer = LayerMask.NameToLayer("Ignore Raycast");
@@ -66,7 +70,32 @@ public class PlayerController : MonoBehaviour
                 }
             }
             #endregion
-        
+
+            
+            
+            if (Physics.Raycast(ray, out hit, 100))
+            {
+                if(selectedObject == null)
+                {
+                    selectedObject = hit.collider.gameObject;
+                    Color c = selectedObject.GetComponent<Renderer>().material.color;
+                    m_OriginalColor = new Color(c.r, c.g, c.b, c.a);
+                    selectedObject.GetComponent<Renderer>().material.color = m_MouseOverColor;
+                }
+                   
+                if (selectedObject != hit.collider.gameObject)
+                {
+                    selectedObject.GetComponent<Renderer>().material.color = m_OriginalColor;
+                    selectedObject = hit.collider.gameObject;
+                }
+               
+            }
+            else
+            {
+                selectedObject.GetComponent<Renderer>().material.color = m_OriginalColor;
+            }
+
+
         }
     }
 
