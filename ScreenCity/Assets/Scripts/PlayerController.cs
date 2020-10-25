@@ -7,39 +7,15 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
-    private const string PLAN_NAME = "Plan";
-    private const string BUILDING_TAG_NAME = "Building";
 
-    public GameObject cube;
 
     public CharacterController controller;
-    public GameObject buildingsGameObject;
-    public Camera camera;
     public float speed = 10f;
 
-    private GameObject previewCube;
+    public GameManager manager;
 
-    void Start() {
-        previewCube = Instantiate(cube, buildingsGameObject.transform);
-        previewCube.layer = LayerMask.NameToLayer("Ignore Raycast");
-
-        Color c = previewCube.GetComponent<MeshRenderer>().material.color;
-        previewCube.GetComponent<MeshRenderer>().material.color = new Color(c.r, c.g, c.b, 0.5f);
-    }
 
     void Update() {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        //Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
-        RaycastHit hit;
-
-        #region Cube Preview
-        if (Physics.Raycast(ray, out hit, 100) && (hit.transform.name == PLAN_NAME || hit.transform.tag == BUILDING_TAG_NAME)) {
-            previewCube.SetActive(true);
-            previewCube.transform.position = hit.point + new Vector3(0, previewCube.transform.localScale.y / 2, 0);
-        } else {
-            previewCube.SetActive(false);
-        }
-        #endregion
 
         #region Movement manager
 
@@ -52,8 +28,11 @@ public class PlayerController : MonoBehaviour {
 
         #endregion
 
-        #region Click manager
-        if (Input.GetMouseButtonDown(0)) {
+        manager.mode.OnCursorRaycast();
+
+        manager.mode.OnMouseClick(0);
+
+        /*if (Input.GetMouseButtonDown(0)) {
             if (Physics.Raycast(ray, out hit, 100)) {
                 if (hit.transform.name == PLAN_NAME || hit.transform.tag == BUILDING_TAG_NAME) {
                     Vector3 cubePos = hit.point;
@@ -71,12 +50,11 @@ public class PlayerController : MonoBehaviour {
                     }
                 }
             }
-        }
-        #endregion
+        }*/
     }
 
     private void UpdateCubeSize(Vector3 size) {
-        previewCube.transform.localScale = size;
+        //previewCube.transform.localScale = size;
     }
     public void Slider_changeCubeSize(Slider slider) {
         UpdateCubeSize(new Vector3(slider.value, slider.value, slider.value));
