@@ -39,12 +39,9 @@ public class GameManager : MonoBehaviour {
     }
 
     public void SetGameMode(GameModes m, BuildingObject buildObj = null) {
-        /*if (mode.MODE == GameModes.Add_Cube) {
-            GameObject.Destroy(((AddCube_Mode)mode).previewCube);
+        if (mode.MODE == GameModes.Add_Object) {
+            GameObject.Destroy(((AddObject_Mode)mode).previewObject);
         }
-        if (mode.MODE == GameModes.Add_Screen) {
-            GameObject.Destroy(((AddScreen_Mode)mode).previewScreen);
-        }*/
 
         switch (m) {
             case GameModes.Add_Object:
@@ -60,108 +57,5 @@ public class GameManager : MonoBehaviour {
     }
     public Game_Mode GetGameMode() {
         return mode;
-    }
-}
-
-
-public abstract class Game_Mode {
-
-    public GameManager.GameModes MODE { get; set; }
-    private GameManager manager;
-
-    public abstract void OnMouseClick(int buttonIndex);
-    public abstract void OnCursorRaycast();
-    public virtual bool CursorRaycast(out RaycastHit hit, float maxDistance = 100) {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        return Physics.Raycast(ray, out hit, maxDistance);
-    }
-}
-
-public class Move_Mode : Game_Mode {
-
-    private GameManager manager;
-
-    public Move_Mode(GameManager _manager) {
-        manager = _manager;
-        MODE = GameManager.GameModes.Move;
-    }
-
-    public override void OnMouseClick(int buttonIndex) {
-    }
-    public override void OnCursorRaycast() {
-    }
-}
-
-public class Remove_Mode : Game_Mode {
-    private GameManager manager;
-
-    public Remove_Mode(GameManager _manager) {
-        manager = _manager;
-        MODE = GameManager.GameModes.Remove;
-    }
-
-    public override void OnMouseClick(int buttonIndex) {
-        if (Input.GetMouseButtonDown(buttonIndex)) {
-            RaycastHit hit;
-            if(CursorRaycast(out hit)) {
-                GameObject.Destroy(hit.transform.gameObject);
-            }
-        }
-    }
-    public override void OnCursorRaycast() {
-    }
-    public override bool CursorRaycast(out RaycastHit hit, float maxDistance = 100) {
-        if (base.CursorRaycast(out hit, maxDistance)) {
-            
-            if(hit.transform.tag == GameManager.BUILDING_TAG_NAME) { // Cubes
-                return true;
-            } else if (hit.transform.parent != null && hit.transform.parent.tag == GameManager.BUILDING_TAG_NAME) { // Screens
-                return true;
-            }
-        }
-        return false;
-    }
-}
-
-public class AddObject_Mode : Game_Mode {
-
-    private readonly GameManager manager;
-    private readonly BuildingObject buildingObject;
-    private readonly Transform parent;
-    public GameObject previewObject;
-
-    public AddObject_Mode(GameManager _manager, BuildingObject _buildingObject, Transform _parent) {
-        MODE = GameManager.GameModes.Add_Object;
-
-        manager = _manager;
-        buildingObject = _buildingObject;
-        parent = _parent;
-        buildingObject.parent = parent;
-        previewObject = _buildingObject.GetPreviewObject();
-    }
-
-    public override void OnMouseClick(int buttonIndex) {
-        RaycastHit hit;
-        if (CursorRaycast(out hit) && Input.GetMouseButtonDown(buttonIndex)) {
-            buildingObject.InstantiateFromPreview(previewObject);
-        }
-    }
-    public override void OnCursorRaycast() {
-        RaycastHit hit;
-        if (CursorRaycast(out hit)) {
-            previewObject.transform.position = buildingObject.PositionOnSurface(hit);
-            previewObject.transform.rotation = buildingObject.RotationOnSurface(hit);
-            previewObject.SetActive(true);
-        } else {
-            previewObject.SetActive(false);
-        }
-    }
-    public override bool CursorRaycast(out RaycastHit hit, float maxDistance = 100) {
-        if (base.CursorRaycast(out hit, maxDistance)) {
-            if (hit.transform.name == GameManager.PLAN_NAME || hit.transform.tag == GameManager.BUILDING_TAG_NAME) {
-                return true;
-            }
-        }
-        return false;
     }
 }

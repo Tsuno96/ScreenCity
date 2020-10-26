@@ -6,7 +6,8 @@ public class BuildingCube : BuildingObject {
     public override GameObject GetPreviewObject() {
         GameObject previewCube = GameObject.Instantiate(gameObject, parent);
         previewCube.layer = LayerMask.NameToLayer("Ignore Raycast");
-        
+        previewCube.name = "Preview Cube";
+
         SetTransparent(previewCube);
 
         return previewCube;

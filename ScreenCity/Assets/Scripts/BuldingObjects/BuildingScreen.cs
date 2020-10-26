@@ -11,6 +11,8 @@ public class BuildingScreen : BuildingObject {
         screenFace.layer = LayerMask.NameToLayer("Ignore Raycast");
         screenBack.layer = LayerMask.NameToLayer("Ignore Raycast");
 
+        previewScreen.name = "Preview Screen";
+
         SetTransparent(screenFace);
         SetTransparent(screenBack);
 
