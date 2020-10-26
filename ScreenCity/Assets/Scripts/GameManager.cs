@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour {
     public GameObject screen;
     public GameObject buildingsGameObject;
 
+    public static readonly float EPSILON = 0.01f;
     public static readonly string PLAN_NAME = "Plan";
     public static readonly string BUILDING_TAG_NAME = "Building";
 
@@ -39,8 +40,6 @@ public class GameManager : MonoBehaviour {
     }
 
     public void SetGameMode(GameModes m) {
-        Debug.Log("SetGameMode(" + m + ")");
-
         if (mode.MODE == GameModes.Add_Cube) {
             GameObject.Destroy(((AddCube_Mode)mode).previewCube);
         }
@@ -141,8 +140,8 @@ public class AddScreen_Mode : Game_Mode {
         screen = _screen;
         buildingsGameObject = _buildingsGameObject;
         previewScreen = GameObject.Instantiate(_screen, _buildingsGameObject.transform);
-        previewScreen.layer = LayerMask.NameToLayer("Ignore Raycast");
-
+        previewScreen.transform.GetChild(0).gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+        previewScreen.transform.GetChild(1).gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
     }
 
     public override void OnMouseClick(int buttonIndex) {
@@ -150,15 +149,15 @@ public class AddScreen_Mode : Game_Mode {
         if (CursorRaycast(out hit) && Input.GetMouseButtonDown(buttonIndex)) {
             GameObject go = GameObject.Instantiate(screen, previewScreen.transform.position, Quaternion.identity, buildingsGameObject.transform);
             go.transform.localScale = previewScreen.transform.localScale;
-
-            //manager.SetGameMode(GameManager.GameModes.Move);
+            go.transform.rotation = previewScreen.transform.rotation;
         }
     }
     public override void OnCursorRaycast() {
         RaycastHit hit;
         if (CursorRaycast(out hit)) {
             previewScreen.SetActive(true);
-            previewScreen.transform.position = hit.point + hit.normal * previewScreen.transform.localScale.y / 2;
+            previewScreen.transform.position = hit.point + hit.normal * GameManager.EPSILON;
+            previewScreen.transform.rotation = Quaternion.Euler(hit.normal.y * 90, hit.normal.x * 90, hit.normal.z * 90);
         } else {
             previewScreen.SetActive(false);
         }

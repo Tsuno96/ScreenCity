@@ -25,9 +25,9 @@ public class PlayerController : MonoBehaviour {
         Vector3 move = transform.right * x + transform.forward * z + playerCamera.transform.forward * Input.mouseScrollDelta.y * 5;
 
         if (Input.GetKey(KeyCode.Space)) {
-             move += transform.up * 0.5f;
+             move += transform.up * 0.33f;
         } else if (Input.GetKey(KeyCode.LeftShift)) {
-            move -= transform.up * 0.5f;
+            move -= transform.up * 0.33f;
         }
 
         controller.Move(move * Time.deltaTime * speed);
