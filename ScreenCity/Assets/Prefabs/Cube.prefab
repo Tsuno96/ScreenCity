@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8981549123760722226}
   - component: {fileID: 8981549123760722225}
   - component: {fileID: 3265107494511832850}
+  - component: {fileID: -5284711377384437592}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Building
@@ -113,3 +114,16 @@ MonoBehaviour:
   lst_nTopVert: 
   lst_nRightVert: 
   lst_nLeftVert: 
+--- !u!114 &-5284711377384437592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8981549123760722224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ed2dd051410f4c429216f4f1e8f7bad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parent: {fileID: 0}
