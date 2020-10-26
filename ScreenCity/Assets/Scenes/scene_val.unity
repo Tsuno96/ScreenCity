@@ -1337,7 +1337,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 1141537515}
-  speed: 15
+  speed: 8
   playerCamera: {fileID: 459950484}
   manager: {fileID: 1536617019}
 --- !u!143 &1141537515
