@@ -7,6 +7,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour {
 
     public GameObject cube;
+    public GameObject screen;
     public GameObject buildingsGameObject;
 
     public static readonly string PLAN_NAME = "Plan";
@@ -21,7 +22,7 @@ public class GameManager : MonoBehaviour {
     public Game_Mode mode;
 
     private void Start() {
-        SetGameMode(GameModes.Move);
+        mode = new Move_Mode(this);
     }
 
     public void SetGameMode_Move() {
@@ -38,15 +39,21 @@ public class GameManager : MonoBehaviour {
     }
 
     public void SetGameMode(GameModes m) {
-        if (m == GameModes.Add_Cube) {
-            mode = new AddCube_Mode(this, cube, buildingsGameObject);
+        Debug.Log("SetGameMode(" + m + ")");
+
+        if (mode.MODE == GameModes.Add_Cube) {
+            GameObject.Destroy(((AddCube_Mode)mode).previewCube);
         }
+        if (mode.MODE == GameModes.Add_Screen) {
+            GameObject.Destroy(((AddScreen_Mode)mode).previewScreen);
+        }
+
         switch (m) {
             case GameModes.Add_Cube:
                 mode = new AddCube_Mode(this, cube, buildingsGameObject);
                 break;
             case GameModes.Add_Screen:
-                mode = new AddScreen_Mode(this);
+                mode = new AddScreen_Mode(this, screen, buildingsGameObject);
                 break;
             case GameModes.Remove:
                 mode = new Remove_Mode(this);
@@ -64,6 +71,7 @@ public class GameManager : MonoBehaviour {
 
 public abstract class Game_Mode {
 
+    public GameManager.GameModes MODE { get; set; }
     private GameManager manager;
 
     public abstract void OnMouseClick(int buttonIndex);
@@ -80,6 +88,7 @@ public class Move_Mode : Game_Mode {
 
     public Move_Mode(GameManager _manager) {
         manager = _manager;
+        MODE = GameManager.GameModes.Move;
     }
 
     public override void OnMouseClick(int buttonIndex) {
@@ -89,11 +98,11 @@ public class Move_Mode : Game_Mode {
 }
 
 public class Remove_Mode : Game_Mode {
-
     private GameManager manager;
 
     public Remove_Mode(GameManager _manager) {
         manager = _manager;
+        MODE = GameManager.GameModes.Remove;
     }
 
     public override void OnMouseClick(int buttonIndex) {
@@ -120,13 +129,47 @@ public class AddScreen_Mode : Game_Mode {
 
     private GameManager manager;
 
-    public AddScreen_Mode(GameManager _manager) {
+    private GameObject buildingsGameObject;
+    private GameObject screen;
+
+    public GameObject previewScreen;
+
+    public AddScreen_Mode(GameManager _manager, GameObject _screen, GameObject _buildingsGameObject) {
         manager = _manager;
+        MODE = GameManager.GameModes.Add_Screen;
+
+        screen = _screen;
+        buildingsGameObject = _buildingsGameObject;
+        previewScreen = GameObject.Instantiate(_screen, _buildingsGameObject.transform);
+        previewScreen.layer = LayerMask.NameToLayer("Ignore Raycast");
+
     }
 
     public override void OnMouseClick(int buttonIndex) {
+        RaycastHit hit;
+        if (CursorRaycast(out hit) && Input.GetMouseButtonDown(buttonIndex)) {
+            GameObject go = GameObject.Instantiate(screen, previewScreen.transform.position, Quaternion.identity, buildingsGameObject.transform);
+            go.transform.localScale = previewScreen.transform.localScale;
+
+            //manager.SetGameMode(GameManager.GameModes.Move);
+        }
     }
     public override void OnCursorRaycast() {
+        RaycastHit hit;
+        if (CursorRaycast(out hit)) {
+            previewScreen.SetActive(true);
+            previewScreen.transform.position = hit.point + hit.normal * previewScreen.transform.localScale.y / 2;
+        } else {
+            previewScreen.SetActive(false);
+        }
+    }
+    public override bool CursorRaycast(out RaycastHit hit, float maxDistance = 100) {
+        if (base.CursorRaycast(out hit, maxDistance)) {
+            if (hit.transform.name == GameManager.PLAN_NAME || hit.transform.tag == GameManager.BUILDING_TAG_NAME) {
+                return true;
+            }
+        }
+        return false;
     }
 }
 
@@ -134,10 +177,12 @@ public class AddCube_Mode : Game_Mode {
 
     private GameManager manager;
     private GameObject cube;
-    private GameObject previewCube;
+    public GameObject previewCube { get; set; }
     private GameObject buildingsGameObject;
 
     public AddCube_Mode(GameManager _manager, GameObject _cube, GameObject _buildingsGameObject) {
+        MODE = GameManager.GameModes.Add_Cube;
+
         manager = _manager;
         cube = _cube;
         buildingsGameObject = _buildingsGameObject;
@@ -149,18 +194,19 @@ public class AddCube_Mode : Game_Mode {
     }
 
     public override void OnMouseClick(int buttonIndex) {
-        if (Input.GetMouseButtonDown(buttonIndex)) {
+        RaycastHit hit;
+        if (CursorRaycast(out hit) && Input.GetMouseButtonDown(buttonIndex)) {
             GameObject go = GameObject.Instantiate(cube, previewCube.transform.position, Quaternion.identity, buildingsGameObject.transform);
             go.transform.localScale = previewCube.transform.localScale;
 
-            manager.SetGameMode(GameManager.GameModes.Move);
+            //manager.SetGameMode(GameManager.GameModes.Move);
         }
     }
     public override void OnCursorRaycast() {
         RaycastHit hit;
-        if (CursorRaycast(out hit) && (hit.transform.name == GameManager.PLAN_NAME || hit.transform.tag == GameManager.BUILDING_TAG_NAME)) {
+        if (CursorRaycast(out hit)) {
             previewCube.SetActive(true);
-            previewCube.transform.position = hit.point + new Vector3(0, previewCube.transform.localScale.y / 2, 0);
+            previewCube.transform.position = hit.point + hit.normal * previewCube.transform.localScale.y / 2;
         } else {
             previewCube.SetActive(false);
         }

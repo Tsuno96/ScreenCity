@@ -45,7 +45,6 @@ public class ScreenController : MonoBehaviour
             tex.LoadImage(fileContent);
 
             GetComponent<Renderer>().material.mainTexture = tex;
-
         }
     }
 }

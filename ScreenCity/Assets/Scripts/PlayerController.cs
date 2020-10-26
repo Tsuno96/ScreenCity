@@ -11,10 +11,10 @@ public class PlayerController : MonoBehaviour {
 
     public CharacterController controller;
     public float speed = 10f;
+    public Camera playerCamera;
 
     public GameManager manager;
-
-
+    
     void Update() {
 
         #region Movement manager
@@ -22,7 +22,13 @@ public class PlayerController : MonoBehaviour {
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
-        Vector3 move = transform.right * x + transform.forward * z + transform.up * -Input.mouseScrollDelta.y * 3;
+        Vector3 move = transform.right * x + transform.forward * z + playerCamera.transform.forward * Input.mouseScrollDelta.y * 5;
+
+        if (Input.GetKey(KeyCode.Space)) {
+             move += transform.up * 0.5f;
+        } else if (Input.GetKey(KeyCode.LeftShift)) {
+            move -= transform.up * 0.5f;
+        }
 
         controller.Move(move * Time.deltaTime * speed);
 

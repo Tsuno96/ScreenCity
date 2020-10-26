@@ -1337,8 +1337,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 1141537515}
-  camera: {fileID: 459950484}
   speed: 15
+  playerCamera: {fileID: 459950484}
   manager: {fileID: 1536617019}
 --- !u!143 &1141537515
 CharacterController:
@@ -2006,6 +2006,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cube: {fileID: 8981549123760722224, guid: fe9902393f538c94aa7765495930e661, type: 3}
+  screen: {fileID: 1186160147605676766, guid: 34febfbc21bdee54f9864c034b1ec413, type: 3}
   buildingsGameObject: {fileID: 1334174805}
 --- !u!1 &1585574819
 GameObject:
