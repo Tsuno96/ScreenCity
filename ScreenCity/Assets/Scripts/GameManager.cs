@@ -116,7 +116,10 @@ public class Remove_Mode : Game_Mode {
     }
     public override bool CursorRaycast(out RaycastHit hit, float maxDistance = 100) {
         if (base.CursorRaycast(out hit, maxDistance)) {
-            if (hit.transform.tag == GameManager.BUILDING_TAG_NAME) {
+            
+            if(hit.transform.tag == GameManager.BUILDING_TAG_NAME) { // Cubes
+                return true;
+            } else if (hit.transform.parent != null && hit.transform.parent.tag == GameManager.BUILDING_TAG_NAME) { // Screens
                 return true;
             }
         }
@@ -157,7 +160,7 @@ public class AddScreen_Mode : Game_Mode {
         if (CursorRaycast(out hit)) {
             previewScreen.SetActive(true);
             previewScreen.transform.position = hit.point + hit.normal * GameManager.EPSILON;
-            previewScreen.transform.rotation = Quaternion.Euler(hit.normal.y * 90, hit.normal.x * 90, hit.normal.z * 90);
+            previewScreen.transform.rotation = Quaternion.Euler(hit.normal.y * 90, hit.normal.x * -90, hit.normal.z * 90);
         } else {
             previewScreen.SetActive(false);
         }
