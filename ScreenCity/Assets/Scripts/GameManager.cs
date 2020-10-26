@@ -17,7 +17,8 @@ public class GameManager : MonoBehaviour {
     public enum GameModes {
         Move,
         Add_Object,
-        Remove
+        Remove,
+        Edit
     }
     public Game_Mode mode;
 
@@ -37,6 +38,9 @@ public class GameManager : MonoBehaviour {
     public void SetGameMode_Remove() {
         SetGameMode(GameModes.Remove);
     }
+    public void SetGameMode_Edit() {
+        SetGameMode(GameModes.Edit);
+    }
 
     public void SetGameMode(GameModes m, BuildingObject buildObj = null) {
         if (mode.MODE == GameModes.Add_Object) {
@@ -49,6 +53,9 @@ public class GameManager : MonoBehaviour {
                 break;
             case GameModes.Remove:
                 mode = new Remove_Mode(this);
+                break;
+            case GameModes.Edit:
+                mode = new Edit_Mode(this);
                 break;
             default:
                 mode = new Move_Mode(this);
