@@ -19,9 +19,9 @@ public class AddObject_Mode : Game_Mode {
         previewObject = _buildingObject.GetPreviewObject();
     }
 
-    public override void OnMouseClick(int buttonIndex) {
+    public override void OnMouseClick() {
         RaycastHit hit;
-        if (CursorRaycast(out hit) && Input.GetMouseButtonDown(buttonIndex)) {
+        if (CursorRaycast(out hit) && Input.GetMouseButtonDown(0)) {
             buildingObject.InstantiateFromPreview(previewObject);
         }
     }

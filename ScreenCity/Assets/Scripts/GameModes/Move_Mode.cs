@@ -11,7 +11,7 @@ public class Move_Mode : Game_Mode {
         MODE = GameManager.GameModes.Move;
     }
 
-    public override void OnMouseClick(int buttonIndex) {
+    public override void OnMouseClick() {
     }
     public override void OnCursorRaycast() {
     }

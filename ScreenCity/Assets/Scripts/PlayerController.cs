@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour {
 
         manager.mode.OnCursorRaycast();
 
-        manager.mode.OnMouseClick(0);
+        manager.mode.OnMouseClick();
 
     }
 

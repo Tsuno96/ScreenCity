@@ -10,8 +10,8 @@ public class Remove_Mode : Game_Mode {
         MODE = GameManager.GameModes.Remove;
     }
 
-    public override void OnMouseClick(int buttonIndex) {
-        if (Input.GetMouseButtonDown(buttonIndex)) {
+    public override void OnMouseClick() {
+        if (Input.GetMouseButtonDown(0)) {
             RaycastHit hit;
             if (CursorRaycast(out hit)) {
                 GameObject.Destroy(hit.transform.gameObject);
