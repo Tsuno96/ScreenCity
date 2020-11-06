@@ -8,12 +8,14 @@ public class MaterialMGR : MonoBehaviour
 
     public List<Material> lstMaterials;
     public Material currentMaterial;
-    public Slider SliderR, SliderG, SliderB;
+    public Slider SliderR, SliderG, SliderB, SliderA;
     public Color colmat;
+
+    public GameObject cubeExemple;
     // Start is called before the first frame update
     void Start()
     {
-       // ChooseMaterial(0);
+        ChooseMaterial(0);
     }
 
     // Update is called once per frame
@@ -27,13 +29,23 @@ public class MaterialMGR : MonoBehaviour
     {
         currentMaterial = new Material(lstMaterials[iMat]);
         colmat = currentMaterial.color;
-        Debug.Log(colmat.r + "," + colmat.g + ","+colmat.b + ",");
+
+        SliderR.SetValueWithoutNotify(colmat.r);
+        SliderG.SetValueWithoutNotify(colmat.g);
+        SliderB.SetValueWithoutNotify(colmat.b);
+        SliderA.SetValueWithoutNotify(colmat.a);
+
+        SliderR.GetComponentInChildren<SliderValueTotext>().ShowSliderValue();
+        SliderG.GetComponentInChildren<SliderValueTotext>().ShowSliderValue();
+        SliderB.GetComponentInChildren<SliderValueTotext>().ShowSliderValue();
+        SliderA.GetComponentInChildren<SliderValueTotext>().ShowSliderValue();
+
+        cubeExemple.GetComponent<Renderer>().material = currentMaterial;
     }
 
     public void colorMaterial()
     {
-        Debug.Log(" color");
-        Color newCol = new Color(SliderR.value, SliderG.value, SliderB.value, currentMaterial.color.a);
+        Color newCol = new Color(SliderR.value, SliderG.value, SliderB.value, SliderA.value);
         currentMaterial.color = newCol;
         colmat = currentMaterial.color;
     }

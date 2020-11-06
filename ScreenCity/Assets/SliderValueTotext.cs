@@ -8,10 +8,9 @@ public class SliderValueTotext : MonoBehaviour
     public Slider sliderUI;
     private Text textSliderValue;
 
-    void Start()
+    void Awake()
     {
         textSliderValue = GetComponent<Text>();
-        ShowSliderValue();
     }
 
     public void ShowSliderValue()
