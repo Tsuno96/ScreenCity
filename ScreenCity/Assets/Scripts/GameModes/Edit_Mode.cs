@@ -6,6 +6,9 @@ using UnityEngine;
 public class Edit_Mode : Game_Mode {
     private GameManager manager;
 
+    private GameObject currentSelected;
+    private Color currentSelectedColor;
+
     public Edit_Mode(GameManager _manager) {
         manager = _manager;
         MODE = GameManager.GameModes.Edit;
@@ -23,7 +26,19 @@ public class Edit_Mode : Game_Mode {
             cc.ChangeScale(f, -0.25f);
         }
     }
-    public override void OnCursorRaycast() {}
+    public override void OnCursorRaycast() {
+        RaycastHit hit;
+        if (CursorRaycast(out hit)) {
+            if (currentSelected == null) {
+                currentSelected = hit.transform.gameObject;
+                currentSelectedColor = currentSelected.GetComponent<MeshRenderer>().material.color;
+                currentSelected.GetComponent<MeshRenderer>().material.color = new Color(currentSelectedColor.r + 0.1f, currentSelectedColor.g, currentSelectedColor.b);
+            }
+        } else if (currentSelected != null) {
+            currentSelected.GetComponent<MeshRenderer>().material.color = currentSelectedColor;
+            currentSelected = null;
+        }
+    }
     public override bool CursorRaycast(out RaycastHit hit, float maxDistance = 100) {
         if (base.CursorRaycast(out hit, maxDistance)) {
             CubeController cc = hit.transform.gameObject.GetComponent<CubeController>();
