@@ -7,7 +7,7 @@ public class Edit_Mode : Game_Mode {
     private GameManager manager;
 
     private GameObject currentSelected;
-    private Color currentSelectedColor;
+    private Color originalMeshColor;
 
     public Edit_Mode(GameManager _manager) {
         manager = _manager;
@@ -26,17 +26,30 @@ public class Edit_Mode : Game_Mode {
             cc.ChangeScale(f, -0.25f);
         }
     }
+
+    private void UnFocusSelected() {
+        if (currentSelected == null) return;
+        currentSelected.GetComponent<MeshRenderer>().material.color = originalMeshColor;
+        currentSelected = null;
+    }
+
+    private void FocusMesh(GameObject g) {
+        MeshRenderer renderer = g.GetComponent<MeshRenderer>();
+        originalMeshColor = renderer.material.color;
+        currentSelected = g;
+
+        Color hoverColor = new Color(1 - originalMeshColor.r, 1 - originalMeshColor.g, 1 - originalMeshColor.b);
+        hoverColor = Color.Lerp(originalMeshColor, hoverColor, 0.33f);
+        g.GetComponent<MeshRenderer>().material.color = hoverColor;
+    }
+
     public override void OnCursorRaycast() {
         RaycastHit hit;
         if (CursorRaycast(out hit)) {
-            if (currentSelected == null) {
-                currentSelected = hit.transform.gameObject;
-                currentSelectedColor = currentSelected.GetComponent<MeshRenderer>().material.color;
-                currentSelected.GetComponent<MeshRenderer>().material.color = new Color(currentSelectedColor.r + 0.1f, currentSelectedColor.g, currentSelectedColor.b);
-            }
+            UnFocusSelected();
+            FocusMesh(hit.transform.gameObject);
         } else if (currentSelected != null) {
-            currentSelected.GetComponent<MeshRenderer>().material.color = currentSelectedColor;
-            currentSelected = null;
+            UnFocusSelected();
         }
     }
     public override bool CursorRaycast(out RaycastHit hit, float maxDistance = 100) {
