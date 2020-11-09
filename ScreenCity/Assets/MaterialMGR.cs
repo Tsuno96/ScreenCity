@@ -8,10 +8,10 @@ public class MaterialMGR : MonoBehaviour
 
     public List<Material> lstMaterials;
     public Material currentMaterial;
-    public Slider SliderR, SliderG, SliderB, SliderA;
+    public Slider SliderR, SliderG, SliderB, SliderA, SliderM, SliderS;
     public Color colmat;
 
-    public GameObject cubeExemple;
+    public GameObject GOExemple;
     // Start is called before the first frame update
     void Start()
     {
@@ -40,7 +40,13 @@ public class MaterialMGR : MonoBehaviour
         SliderB.GetComponentInChildren<SliderValueTotext>().ShowSliderValue();
         SliderA.GetComponentInChildren<SliderValueTotext>().ShowSliderValue();
 
-        cubeExemple.GetComponent<Renderer>().material = currentMaterial;
+        SliderM.SetValueWithoutNotify(currentMaterial.GetFloat("_Metallic"));
+        SliderM.GetComponentInChildren<SliderValueTotext>().ShowSliderValue();
+
+        SliderS.SetValueWithoutNotify(currentMaterial.GetFloat("_Glossiness"));
+        SliderS.GetComponentInChildren<SliderValueTotext>().ShowSliderValue();
+
+        GOExemple.GetComponent<Renderer>().material = currentMaterial;
     }
 
     public void colorMaterial()
@@ -49,4 +55,10 @@ public class MaterialMGR : MonoBehaviour
         currentMaterial.color = newCol;
         colmat = currentMaterial.color;
     }
- }
+
+    public void metallicSmoothnessMaterial()
+    {
+        currentMaterial.SetFloat("_Metallic", SliderM.value);
+        currentMaterial.SetFloat("_Glossiness", SliderS.value);
+    }
+}

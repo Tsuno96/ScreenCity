@@ -5,13 +5,15 @@ using UnityEngine.UI;
 
 public class SliderValueTotext : MonoBehaviour
 {
-    public Slider sliderUI;
-    private Text textSliderValue;
-
+    Slider sliderUI;
+    Text textSliderValue;
     void Awake()
     {
         textSliderValue = GetComponent<Text>();
+        sliderUI = GetComponentInParent<Slider>();
+        ShowSliderValue();
     }
+    
 
     public void ShowSliderValue()
     {
