@@ -16,14 +16,16 @@ public class MaterialMGR : MonoBehaviour
 
     public GameObject GOCanvasMat;
 
-    List<Material> assets;
+    public Object[] customMaterials;
+    int idcustomMat;
 
     // Start is called before the first frame update
     void Start()
     {
         ChooseMaterial(0);
         showPanel();
-        //PrintAssets();
+
+        GetCustomMaterials();
     }
 
     // Update is called once per frame
@@ -84,41 +86,27 @@ public class MaterialMGR : MonoBehaviour
 
     public  void CreateMaterial()
     {
-        // Create a simple material asset
-
-        Material material = currentMaterial;
-        AssetDatabase.CreateAsset(material, "Assets/CustomAssets/CustomMat.mat");
-
+        Material material = new Material(currentMaterial);
+        AssetDatabase.CreateAsset(material, "Assets/resources/CustomAssets/customMat"+ idcustomMat + ".mat");
+        idcustomMat++;
         // Print the path of the created asset
         Debug.Log(AssetDatabase.GetAssetPath(material));
+        GetCustomMaterials();
     }
 
 
-    void readAssets()
+    private void GetCustomMaterials()
     {
 
-    }
+        customMaterials = Resources.LoadAll("CustomAssets", typeof(Material));
 
-    [MenuItem("AssetDatabase/LoadAllAssetsAtPath")]
-    private static void PrintAssets()
-    {
+        Debug.Log(customMaterials.Length + " Assets");
 
-        Object[] data = Resources.LoadAll("", typeof(Material));
-
-        Debug.Log(data.Length + " Assets");
-
-        foreach (Object o in data)
+        foreach (Object o in customMaterials)
         {
             Debug.Log(o);
         }
-
-        // outputs:
-        //  5 Assets
-        //  MySpriteTexture (UnityEngine.Texture2D)
-        //  MyTexture_0 (UnityEngine.Sprite)
-        //  MyTexture_1 (UnityEngine.Sprite)
-        //  MyTexture_2 (UnityEngine.Sprite)
-        //  MyTexture_3 (UnityEngine.Sprite)
+        idcustomMat = customMaterials.Length;
     }
 
 }
