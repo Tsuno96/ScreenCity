@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BuildingScreen : BuildingObject {
-    public override GameObject GetPreviewObject() {
+    public override BuildingObject GetPreviewObject() {
         GameObject previewScreen = GameObject.Instantiate(gameObject, parent);
         GameObject screenFace = previewScreen.transform.GetChild(0).gameObject;
         GameObject screenBack = previewScreen.transform.GetChild(1).gameObject;
@@ -16,7 +16,7 @@ public class BuildingScreen : BuildingObject {
         SetTransparent(screenFace);
         SetTransparent(screenBack);
 
-        return previewScreen;
+        return previewScreen.GetComponent<BuildingObject>();
     }
 
     public override GameObject InstantiateFromPreview(GameObject preview) {

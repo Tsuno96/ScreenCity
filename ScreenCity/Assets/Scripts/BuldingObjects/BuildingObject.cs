@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class BuildingObject : MonoBehaviour {
     public Transform parent;
-    public abstract GameObject GetPreviewObject();
+    public abstract BuildingObject GetPreviewObject();
     public abstract GameObject InstantiateFromPreview(GameObject preview);
 
     public virtual Vector3 PositionOnSurface(RaycastHit hit) {
@@ -12,6 +12,11 @@ public abstract class BuildingObject : MonoBehaviour {
     }
     public virtual Quaternion RotationOnSurface(RaycastHit hit) {
         return Quaternion.identity;
+    }
+
+    public virtual void SetPreviewPosition(RaycastHit hit) {
+        transform.position = PositionOnSurface(hit);
+        transform.rotation = RotationOnSurface(hit);
     }
 
     public static void ToFadeMode(Material material) {

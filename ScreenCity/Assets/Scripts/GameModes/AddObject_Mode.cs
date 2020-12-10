@@ -7,7 +7,7 @@ public class AddObject_Mode : Game_Mode {
     private readonly GameManager manager;
     private readonly BuildingObject buildingObject;
     private readonly Transform parent;
-    public GameObject previewObject;
+    public BuildingObject previewObject;
 
     public AddObject_Mode(GameManager _manager, BuildingObject _buildingObject, Transform _parent) {
         MODE = GameManager.GameModes.Add_Object;
@@ -22,17 +22,22 @@ public class AddObject_Mode : Game_Mode {
     public override void OnMouseClick() {
         RaycastHit hit;
         if (CursorRaycast(out hit) && Input.GetMouseButtonDown(0)) {
-            buildingObject.InstantiateFromPreview(previewObject);
+            buildingObject.InstantiateFromPreview(previewObject.gameObject);
         }
     }
+
+    /*protected virtual void SetPreviewObjectPosition(RaycastHit hit) {
+        previewObject.transform.position = buildingObject.PositionOnSurface(hit);
+        previewObject.transform.rotation = buildingObject.RotationOnSurface(hit);
+    }*/
+
     public override void OnCursorRaycast() {
         RaycastHit hit;
         if (CursorRaycast(out hit)) {
-            previewObject.transform.position = buildingObject.PositionOnSurface(hit);
-            previewObject.transform.rotation = buildingObject.RotationOnSurface(hit);
-            previewObject.SetActive(true);
+            previewObject.SetPreviewPosition(hit);
+            previewObject.gameObject.SetActive(true);
         } else {
-            previewObject.SetActive(false);
+            previewObject.gameObject.SetActive(false);
         }
     }
     public override bool CursorRaycast(out RaycastHit hit, float maxDistance = 100) {
