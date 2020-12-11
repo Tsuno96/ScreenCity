@@ -3,16 +3,22 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net.Http.Headers;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
     public BuildingObject cube;
     public BuildingObject screen;
+    public List<BuildingObject> props;
     public GameObject buildingsGameObject;
+    [Space]
+    public GameObject propsListItem;
 
     public static readonly float EPSILON = 0.01f;
     public static readonly string PLAN_NAME = "Plan";
     public static readonly string BUILDING_TAG_NAME = "Building";
+
+    public int indexProps { get; set; }
 
     public enum GameModes {
         Move,
@@ -24,6 +30,11 @@ public class GameManager : MonoBehaviour {
 
     private void Start() {
         mode = new Move_Mode(this);
+
+        Transform scrollView = GameObject.Find("Content").transform.Find("ListProps");
+        foreach (BuildingObject b in props) {
+            Instantiate(propsListItem, scrollView);
+        }
     }
 
     public void SetGameMode_Move() {
@@ -34,6 +45,9 @@ public class GameManager : MonoBehaviour {
     }
     public void SetGameMode_AddScreen() {
         SetGameMode(GameModes.Add_Object, screen);
+    }
+    public void SetGameMode_AddProps() {
+        SetGameMode(GameModes.Add_Object, props[indexProps]);
     }
     public void SetGameMode_Remove() {
         SetGameMode(GameModes.Remove);

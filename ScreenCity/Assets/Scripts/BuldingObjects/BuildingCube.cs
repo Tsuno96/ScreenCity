@@ -13,6 +13,10 @@ public class BuildingCube : BuildingObject {
         return previewCube;
     }
 
+    public override Vector3 PositionOnSurface(RaycastHit hit) {
+        return hit.point + hit.normal * transform.localScale.y / 2;
+    }
+    
     public override GameObject InstantiateFromPreview(GameObject preview) {
         GameObject newCube = GameObject.Instantiate(gameObject, preview.transform.position, Quaternion.identity, parent);
         newCube.transform.localScale = preview.transform.localScale;
