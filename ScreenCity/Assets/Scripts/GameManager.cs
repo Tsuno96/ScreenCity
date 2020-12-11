@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour {
     public static readonly string PLAN_NAME = "Plan";
     public static readonly string BUILDING_TAG_NAME = "Building";
 
-    public int indexProps { get; set; }
+    public static BuildingObject currentProps { get; set; }
 
     public enum GameModes {
         Move,
@@ -29,11 +29,29 @@ public class GameManager : MonoBehaviour {
     public Game_Mode mode;
 
     private void Start() {
+        currentProps = props[0];
+
         mode = new Move_Mode(this);
 
         Transform scrollView = GameObject.Find("Content").transform.Find("ListProps");
-        foreach (BuildingObject b in props) {
-            Instantiate(propsListItem, scrollView);
+
+        for (int i = 0; i < props.Count; i ++) {
+            GameObject listProps = Instantiate(propsListItem, scrollView);
+
+            Text t = listProps.GetComponentInChildren<Text>();
+
+            //Transform preview = listProps.GetComponentInChildren<BuildingProps>().transform;
+
+            Transform preview = listProps.transform.Find("preview");
+            GameObject prevObj = Instantiate(props[i].gameObject, listProps.transform);
+            prevObj.name = "preview";
+            prevObj.transform.position = preview.position;
+            prevObj.transform.rotation = preview.rotation;
+            prevObj.transform.localScale = preview.localScale;
+
+            Destroy(preview.gameObject);
+
+            t.text = props[i].name;
         }
     }
 
@@ -47,7 +65,7 @@ public class GameManager : MonoBehaviour {
         SetGameMode(GameModes.Add_Object, screen);
     }
     public void SetGameMode_AddProps() {
-        SetGameMode(GameModes.Add_Object, props[indexProps]);
+        SetGameMode(GameModes.Add_Object, currentProps);
     }
     public void SetGameMode_Remove() {
         SetGameMode(GameModes.Remove);
