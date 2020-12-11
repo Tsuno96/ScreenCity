@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1593309051279868149
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1593309051279868171}
+  - component: {fileID: 1593309051279868170}
+  m_Layer: 0
+  m_Name: MGRMat
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1593309051279868171
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1593309051279868149}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 132.14893, y: -41.94097, z: 154.40483}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1593309051279868170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1593309051279868149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 127bbf24586a5354499ebca940a6d4e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lstMaterials:
+  - {fileID: 2100000, guid: c596d8fe4aa94a94a90e83074cdaf84f, type: 2}
+  - {fileID: 2100000, guid: 99cd21fe29d3abb4a883852d9be323dd, type: 2}
+  - {fileID: 2100000, guid: 06a7a008dc1e2ad4e9cd32446889390a, type: 2}
+  currentMaterial: {fileID: 0}
+  SliderR: {fileID: 0}
+  SliderG: {fileID: 0}
+  SliderB: {fileID: 0}
+  SliderA: {fileID: 0}
+  SliderM: {fileID: 0}
+  SliderS: {fileID: 0}
+  colmat: {r: 0, g: 0, b: 0, a: 0}
+  GOExemple: {fileID: 0}
+  GOCanvasMat: {fileID: 0}
+  GOGrid: {fileID: 0}
+  customMaterials: []

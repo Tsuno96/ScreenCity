@@ -18,7 +18,8 @@ public class GameManager : MonoBehaviour {
         Move,
         Add_Object,
         Remove,
-        Edit
+        Edit,
+        Material
     }
     public Game_Mode mode;
 
@@ -41,10 +42,17 @@ public class GameManager : MonoBehaviour {
     public void SetGameMode_Edit() {
         SetGameMode(GameModes.Edit);
     }
-
+    public void SetGameMode_Material()
+    {
+        SetGameMode(GameModes.Material);
+    }
     public void SetGameMode(GameModes m, BuildingObject buildObj = null) {
         if (mode.MODE == GameModes.Add_Object) {
             GameObject.Destroy(((AddObject_Mode)mode).previewObject);
+        }
+        else if(mode.MODE != GameModes.Material)
+        {
+            MaterialMGR.Instance.ClearUI();
         }
 
         switch (m) {
@@ -56,6 +64,9 @@ public class GameManager : MonoBehaviour {
                 break;
             case GameModes.Edit:
                 mode = new Edit_Mode(this);
+                break;
+            case GameModes.Material:
+                mode = new Material_Mode(this);
                 break;
             default:
                 mode = new Move_Mode(this);

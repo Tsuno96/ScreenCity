@@ -2,7 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
-
+using System;
 public class MaterialMGR : MonoBehaviour
 {
     private static MaterialMGR pInstance = null;
@@ -15,8 +15,10 @@ public class MaterialMGR : MonoBehaviour
 
     public GameObject GOExemple;
 
-    public GameObject GOCanvasMat;
-    public GameObject GOGrid;
+    SortedDictionary<int,Material> dictCustomMat;
+
+    public GameObject GOPanelCreate;
+    public GameObject GOGridCustom;
 
 
     public Material[] customMaterials;
@@ -53,7 +55,12 @@ public class MaterialMGR : MonoBehaviour
     {
         currentMaterial = new Material(lstMaterials[iMat]);
         colmat = currentMaterial.color;
+        UpdateUI();
 
+    }
+
+    private void UpdateUI()
+    {
         SliderR.SetValueWithoutNotify(colmat.r);
         SliderG.SetValueWithoutNotify(colmat.g);
         SliderB.SetValueWithoutNotify(colmat.b);
@@ -88,14 +95,15 @@ public class MaterialMGR : MonoBehaviour
 
     public void showPanel()
     {
-        if (GOCanvasMat.activeSelf)
+        if (GOPanelCreate.activeSelf)
         {
-            GOCanvasMat.SetActive(false);
+            GOPanelCreate.SetActive(false);
         }
         else
         {
             ClearUI();
-            GOCanvasMat.SetActive(true);
+            GOPanelCreate.SetActive(true);
+            UpdateUI();
         }
     }
 
@@ -115,34 +123,57 @@ public class MaterialMGR : MonoBehaviour
 
         Debug.Log(customMaterials.Length + " Assets");
 
-        /*foreach (Object o in customMaterials)
+        dictCustomMat = new SortedDictionary<int, Material>();
+
+        foreach (Material m in customMaterials)
         {
-            Debug.Log(o);
-        }*/
+            string strId = "";
+            foreach(char c in m.name)
+            {
+                if(Char.IsDigit(c))
+                {
+                    strId += c;
+                }
+            }
+            int id = Int32.Parse(strId);
+            dictCustomMat.Add(id,m);
+        }
+        List<Material> customMatSorted = new List<Material>();
+        foreach (KeyValuePair<int, Material> kvp in dictCustomMat)
+        {
+            customMatSorted.Add(kvp.Value);
+        }
+
         idcustomMat = customMaterials.Length;
 
-        return customMaterials;
+        return customMatSorted.ToArray();
+    }
+
+    void sortMatList()
+    {
+
+
     }
 
 
     public void showGrid()
     {
-        if (GOGrid.activeSelf)
+        if (GOGridCustom.activeSelf)
         {
-            GOGrid.SetActive(false);
+            GOGridCustom.SetActive(false);
         }
         else
         {
             ClearUI();
-            GOGrid.SetActive(true);
-            GOGrid.GetComponentInChildren<PopulateGrid>().Populate();
+            GOGridCustom.SetActive(true);
+            GOGridCustom.GetComponentInChildren<PopulateGrid>().Populate();
         }
 
     }
     
-    void ClearUI()
+    public void ClearUI()
     {
-        GOCanvasMat.SetActive(false);
-        GOGrid.SetActive(false);
+        GOPanelCreate.SetActive(false);
+        GOGridCustom.SetActive(false);
     }
 }
