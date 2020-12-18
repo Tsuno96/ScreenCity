@@ -69,8 +69,8 @@ public class GameManager : MonoBehaviour {
         SetGameMode(GameModes.Add_Object, screen);
     }
     public void SetGameMode_AddProps() {
-        propsCanvas.SetActive(true);
         SetGameMode(GameModes.Add_Object, currentProps);
+        propsCanvas.SetActive(true);
     }
     public void SetGameMode_Remove() {
         SetGameMode(GameModes.Remove);
@@ -83,13 +83,12 @@ public class GameManager : MonoBehaviour {
         SetGameMode(GameModes.Material);
     }
     public void SetGameMode(GameModes m, BuildingObject buildObj = null) {
+        propsCanvas.SetActive(false);
         if (mode.MODE == GameModes.Add_Object) {
             GameObject.Destroy(((AddObject_Mode)mode).previewObject);
-        }
-        else if(mode.MODE != GameModes.Material)
-        {
+        } else if (mode.MODE != GameModes.Material) {
             MaterialMGR.Instance.ClearUI();
-        }        
+        }
 
         switch (m) {
             case GameModes.Add_Object:
