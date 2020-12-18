@@ -56,6 +56,6 @@ MonoBehaviour:
   SliderS: {fileID: 0}
   colmat: {r: 0, g: 0, b: 0, a: 0}
   GOExemple: {fileID: 0}
-  GOCanvasMat: {fileID: 0}
-  GOGrid: {fileID: 0}
+  GOPanelCreate: {fileID: 0}
+  GOGridCustom: {fileID: 0}
   customMaterials: []
