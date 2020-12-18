@@ -8,7 +8,7 @@ public abstract class BuildingObject : MonoBehaviour {
     public abstract GameObject InstantiateFromPreview(GameObject preview);
 
     public virtual Vector3 PositionOnSurface(RaycastHit hit) {
-        return hit.point + hit.normal * transform.localScale.y / 2;
+        return hit.point;
     }
     public virtual Quaternion RotationOnSurface(RaycastHit hit) {
         return Quaternion.identity;

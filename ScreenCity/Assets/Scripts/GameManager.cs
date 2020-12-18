@@ -3,16 +3,22 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net.Http.Headers;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
     public BuildingObject cube;
     public BuildingObject screen;
+    public List<BuildingObject> props;
     public GameObject buildingsGameObject;
+    [Space]
+    public GameObject propsListItem;
 
     public static readonly float EPSILON = 0.01f;
     public static readonly string PLAN_NAME = "Plan";
     public static readonly string BUILDING_TAG_NAME = "Building";
+
+    public static BuildingObject currentProps { get; set; }
 
     public enum GameModes {
         Move,
@@ -24,7 +30,30 @@ public class GameManager : MonoBehaviour {
     public Game_Mode mode;
 
     private void Start() {
+        currentProps = props[0];
+
         mode = new Move_Mode(this);
+
+        Transform scrollView = GameObject.Find("Content").transform.Find("ListProps");
+
+        for (int i = 0; i < props.Count; i ++) {
+            GameObject listProps = Instantiate(propsListItem, scrollView);
+
+            Text t = listProps.GetComponentInChildren<Text>();
+
+            //Transform preview = listProps.GetComponentInChildren<BuildingProps>().transform;
+
+            Transform preview = listProps.transform.Find("preview");
+            GameObject prevObj = Instantiate(props[i].gameObject, listProps.transform);
+            prevObj.name = "preview";
+            prevObj.transform.position = preview.position;
+            prevObj.transform.rotation = preview.rotation;
+            prevObj.transform.localScale = preview.localScale;
+
+            Destroy(preview.gameObject);
+
+            t.text = props[i].name;
+        }
     }
 
     public void SetGameMode_Move() {
@@ -35,6 +64,9 @@ public class GameManager : MonoBehaviour {
     }
     public void SetGameMode_AddScreen() {
         SetGameMode(GameModes.Add_Object, screen);
+    }
+    public void SetGameMode_AddProps() {
+        SetGameMode(GameModes.Add_Object, currentProps);
     }
     public void SetGameMode_Remove() {
         SetGameMode(GameModes.Remove);
