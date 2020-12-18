@@ -1,19 +1,17 @@
-﻿using UnityEngine;
-using System.Collections;
-using UnityEditor;
-using System;
+﻿using UnityEditor;
+using UnityEngine;
 
 [CustomEditor(typeof(DynamicOutline))]
-public class OutlineEditor : Editor {
-
-    DynamicOutline m_target;
+public class OutlineEditor : Editor
+{
+    private DynamicOutline m_target;
 
     public override void OnInspectorGUI()
     {
-        m_target = (DynamicOutline) target;
+        m_target = (DynamicOutline)target;
 
         DrawDefaultInspector();
-        
+
         EditorGUILayout.Separator();
         GUILayout.BeginHorizontal();
 
@@ -27,7 +25,6 @@ public class OutlineEditor : Editor {
 
         if (GUILayout.Button("Combine Meshes", GUILayout.Height(22)))
         {
-
             GameObject copy = new GameObject();
             copy.name = "Combined Mesh of " + m_target.gameObject.name;
             copy.transform.position = m_target.transform.position;
@@ -44,7 +41,7 @@ public class OutlineEditor : Editor {
         DrawOutlineInspector();
     }
 
-    void DrawOutlineInspector()
+    private void DrawOutlineInspector()
     {
         EditorGUILayout.Separator();
 
@@ -103,7 +100,6 @@ public class OutlineEditor : Editor {
                 Scan();
             }
 
-
             GUILayout.EndHorizontal();
 
             /*
@@ -161,8 +157,8 @@ public class OutlineEditor : Editor {
         GameObject copy = new GameObject();
 
         copy.name = m_target.gameObject.name + " Outline";
-        
-        Material material = m_target.material != null ? m_target.material: new Material(Shader.Find("DynamicOutline/Outline Only"));
+
+        Material material = m_target.material != null ? m_target.material : new Material(Shader.Find("DynamicOutline/Outline Only"));
         material.name = m_target.gameObject.name;
         SaveToAssets(material, "Assets/DynamicOutline & Mesh Combining/materials/" + m_target.gameObject.name + ".mat");
         m_target.material = material;
@@ -175,7 +171,7 @@ public class OutlineEditor : Editor {
         copy.GetComponent<MeshRenderer>().materials = new Material[] { material };
 
         AddSkin(m_target.gameObject, copy);
-        
+
         copy.transform.SetParent(m_target.transform);
         copy.transform.localPosition = new Vector3(0, 0, 0);
         copy.transform.localEulerAngles = new Vector3(0, 0, 0);
@@ -220,7 +216,6 @@ public class OutlineEditor : Editor {
         return mesh;
     }
 
-    
     private void AddSkins(Transform transform, GameObject copy)
     {
         foreach (Transform child in transform)
@@ -243,7 +238,8 @@ public class OutlineEditor : Editor {
         }
     }
 
-    private bool AddSkin(GameObject original, GameObject copy) {
+    private bool AddSkin(GameObject original, GameObject copy)
+    {
         SkinnedMeshRenderer skin = original.GetComponent<SkinnedMeshRenderer>();
         if (skin != null)
         {
@@ -266,5 +262,4 @@ public class OutlineEditor : Editor {
             return false;
         }
     }
-    
 }

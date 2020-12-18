@@ -1,11 +1,6 @@
 ﻿using Assets.Script.Create_Cube;
-using System.Collections;
 using System.Collections.Generic;
-using System.Dynamic;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using TreeEditor;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
@@ -13,7 +8,8 @@ public class CubeController : MonoBehaviour
 {
     public List<Vector3> lst_vec3Vertices;
 
-    public enum Face_Index {
+    public enum Face_Index
+    {
         Top = 0,
         Bottom = 1,
         Front = 2,
@@ -36,9 +32,9 @@ public class CubeController : MonoBehaviour
     public List<int> lst_nTopVert;
     public List<int> lst_nRightVert;
     public List<int> lst_nLeftVert;
-    Vector3 center;
+    private Vector3 center;
 
-    void Start()
+    private void Start()
     {
         lst_vec3Vertices = GetComponent<MeshFilter>().mesh.vertices.ToList<Vector3>();
         InitArrayVertices();
@@ -60,7 +56,7 @@ public class CubeController : MonoBehaviour
         FLeft = new Face(lst_nLeftVert, Vector3.left);*/
     }
 
-    void InitArrayVertices()
+    private void InitArrayVertices()
     {
         lst_vec3Vertices = GetComponent<MeshFilter>().mesh.vertices.ToList<Vector3>();
 
@@ -91,15 +87,13 @@ public class CubeController : MonoBehaviour
                 lst_nBackVert.Add(i);
             }
         }
-
-
     }
 
     public void ChangeScale(Face f, float add)
     {
         foreach (int i in f.iVertices)
         {
-            lst_vec3Vertices[i] += f.axes * add;        
+            lst_vec3Vertices[i] += f.axes * add;
         }
         GetComponent<MeshFilter>().mesh.vertices = lst_vec3Vertices.ToArray<Vector3>();
         GetComponent<MeshFilter>().mesh.RecalculateBounds();
@@ -107,9 +101,12 @@ public class CubeController : MonoBehaviour
         gameObject.AddComponent(typeof(BoxCollider));
     }
 
-    public Face GetFaceWithNormal(Vector3 normal) {
-        foreach (KeyValuePair<Face_Index, Face> f in faces) {
-            if (normal == f.Value.axes) {
+    public Face GetFaceWithNormal(Vector3 normal)
+    {
+        foreach (KeyValuePair<Face_Index, Face> f in faces)
+        {
+            if (normal == f.Value.axes)
+            {
                 return f.Value;
             }
         }

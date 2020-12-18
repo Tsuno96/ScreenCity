@@ -1,24 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.IO;
 using UnityEditor;
-using System.IO;
-using System.Runtime.CompilerServices;
+using UnityEngine;
 
 public class ScreenController : MonoBehaviour
 {
-
     public Texture texture;
+
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
     }
 
     private void OnMouseDown()
@@ -30,11 +25,11 @@ public class ScreenController : MonoBehaviour
     public void Apply()
     {
         texture = GetComponent<Renderer>().material.mainTexture;
-       /* if (texture == null)
-        {
-            EditorUtility.DisplayDialog("Select Texture", "You must select a texture first!", "OK");
-            return;
-        }*/
+        /* if (texture == null)
+         {
+             EditorUtility.DisplayDialog("Select Texture", "You must select a texture first!", "OK");
+             return;
+         }*/
 
         string path = EditorUtility.OpenFilePanel("Overwrite with png", "", "png");
         Debug.Log(path);

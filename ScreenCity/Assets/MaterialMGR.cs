@@ -46,8 +46,6 @@ public class MaterialMGR : MonoBehaviour
         GetCustomMaterials();
     }
 
-
-
     public void ChooseMaterial(int iMat)
     {
         currentMaterial = new Material(lstMaterials[iMat]);

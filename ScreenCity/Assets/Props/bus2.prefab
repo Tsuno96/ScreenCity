@@ -1,19 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!64 &8020837971686407055
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 671843015993687456}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 491552292220232066, guid: 87e3a85426b42a9408e33a302b2a2883, type: 3}
 --- !u!1 &3363381397187591786
 GameObject:
   m_ObjectHideFlags: 0
@@ -24,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3363381397187591787}
   - component: {fileID: 1215968970541822486}
+  - component: {fileID: 7295095440148746087}
   m_Layer: 2
   m_Name: bus2
   m_TagString: Untagged
@@ -59,6 +46,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parent: {fileID: 0}
+--- !u!65 &7295095440148746087
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3363381397187591786}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1.133777, z: 1.9548893}
+  m_Center: {x: 0, y: 0.5420267, z: 0.025371552}
 --- !u!1001 &3363381397240002857
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -141,12 +141,6 @@ PrefabInstance:
 --- !u!4 &2965507048757321410 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 87e3a85426b42a9408e33a302b2a2883,
-    type: 3}
-  m_PrefabInstance: {fileID: 3363381397240002857}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &671843015993687456 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2882299527946355849, guid: 87e3a85426b42a9408e33a302b2a2883,
     type: 3}
   m_PrefabInstance: {fileID: 3363381397240002857}
   m_PrefabAsset: {fileID: 0}

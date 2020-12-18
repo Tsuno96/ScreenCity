@@ -1,22 +1,23 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MouseLook : MonoBehaviour
 {
     public float mouseSensitivity = 100f;
-    float xRotation = 0f;
+    private float xRotation = 0f;
 
-    void Start() {
+    private void Start()
+    {
         //Cursor.lockState = CursorLockMode.Locked;
         //Cursor.lockState = CursorLockMode.Confined;
     }
 
-    void Update() {
+    private void Update()
+    {
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
-        if (Input.GetMouseButton(2)) {
+        if (Input.GetMouseButton(2))
+        {
             xRotation -= mouseY;
             xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 

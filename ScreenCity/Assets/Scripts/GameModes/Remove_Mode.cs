@@ -1,31 +1,41 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Remove_Mode : Game_Mode {
+public class Remove_Mode : Game_Mode
+{
     private GameManager manager;
 
-    public Remove_Mode(GameManager _manager) {
+    public Remove_Mode(GameManager _manager)
+    {
         manager = _manager;
         MODE = GameManager.GameModes.Remove;
     }
 
-    public override void OnMouseClick() {
-        if (Input.GetMouseButtonDown(0)) {
+    public override void OnMouseClick()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
             RaycastHit hit;
-            if (CursorRaycast(out hit)) {
+            if (CursorRaycast(out hit))
+            {
                 GameObject.Destroy(hit.transform.gameObject);
             }
         }
     }
-    public override void OnCursorRaycast() {
-    }
-    public override bool CursorRaycast(out RaycastHit hit, float maxDistance = 100) {
-        if (base.CursorRaycast(out hit, maxDistance)) {
 
-            if (hit.transform.tag == GameManager.BUILDING_TAG_NAME) { // Cubes
+    public override void OnCursorRaycast()
+    {
+    }
+
+    public override bool CursorRaycast(out RaycastHit hit, float maxDistance = 100)
+    {
+        if (base.CursorRaycast(out hit, maxDistance))
+        {
+            if (hit.transform.tag == GameManager.BUILDING_TAG_NAME)
+            { // Cubes
                 return true;
-            } else if (hit.transform.parent != null && hit.transform.parent.tag == GameManager.BUILDING_TAG_NAME) { // Screens
+            }
+            else if (hit.transform.parent != null && hit.transform.parent.tag == GameManager.BUILDING_TAG_NAME)
+            { // Screens
                 return true;
             }
         }

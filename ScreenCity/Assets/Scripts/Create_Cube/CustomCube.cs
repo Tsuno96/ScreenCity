@@ -1,17 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CustomCube : MonoBehaviour
 {
-
-
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         InitCube();
     }
-
 
     private void InitCube()
     {
@@ -29,7 +24,7 @@ public class CustomCube : MonoBehaviour
             new Vector3 (0, 0, 1),
         };
 
-            int[] triangles = {
+        int[] triangles = {
                 0, 2, 1, //face front
 	            0, 3, 2,
                 2, 3, 4, //face top
@@ -44,21 +39,16 @@ public class CustomCube : MonoBehaviour
 	            0, 1, 6
             };
 
-            Mesh mesh = GetComponent<MeshFilter>().mesh;
-            mesh.Clear();
-            mesh.vertices = vertices;
-            mesh.triangles = triangles;
-            mesh.Optimize();
-            mesh.RecalculateNormals();
-
-
+        Mesh mesh = GetComponent<MeshFilter>().mesh;
+        mesh.Clear();
+        mesh.vertices = vertices;
+        mesh.triangles = triangles;
+        mesh.Optimize();
+        mesh.RecalculateNormals();
     }
 
-
-
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-
     }
 }

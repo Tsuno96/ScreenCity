@@ -1,15 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class AddObject_Mode : Game_Mode {
-
+public class AddObject_Mode : Game_Mode
+{
     private readonly GameManager manager;
     private readonly BuildingObject buildingObject;
     private readonly Transform parent;
     public GameObject previewObject;
 
-    public AddObject_Mode(GameManager _manager, BuildingObject _buildingObject, Transform _parent) {
+    public AddObject_Mode(GameManager _manager, BuildingObject _buildingObject, Transform _parent)
+    {
         MODE = GameManager.GameModes.Add_Object;
 
         manager = _manager;
@@ -19,25 +18,36 @@ public class AddObject_Mode : Game_Mode {
         previewObject = _buildingObject.GetPreviewObject();
     }
 
-    public override void OnMouseClick() {
+    public override void OnMouseClick()
+    {
         RaycastHit hit;
-        if (CursorRaycast(out hit) && Input.GetMouseButtonDown(0)) {
+        if (CursorRaycast(out hit) && Input.GetMouseButtonDown(0))
+        {
             buildingObject.InstantiateFromPreview(previewObject);
         }
     }
-    public override void OnCursorRaycast() {
+
+    public override void OnCursorRaycast()
+    {
         RaycastHit hit;
-        if (CursorRaycast(out hit)) {
+        if (CursorRaycast(out hit))
+        {
             previewObject.transform.position = buildingObject.PositionOnSurface(hit);
             previewObject.transform.rotation = buildingObject.RotationOnSurface(hit);
             previewObject.SetActive(true);
-        } else {
+        }
+        else
+        {
             previewObject.SetActive(false);
         }
     }
-    public override bool CursorRaycast(out RaycastHit hit, float maxDistance = 100) {
-        if (base.CursorRaycast(out hit, maxDistance)) {
-            if (hit.transform.name == GameManager.PLAN_NAME || hit.transform.tag == GameManager.BUILDING_TAG_NAME) {
+
+    public override bool CursorRaycast(out RaycastHit hit, float maxDistance = 100)
+    {
+        if (base.CursorRaycast(out hit, maxDistance))
+        {
+            if (hit.transform.name == GameManager.PLAN_NAME || hit.transform.tag == GameManager.BUILDING_TAG_NAME)
+            {
                 return true;
             }
         }

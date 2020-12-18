@@ -44,6 +44,4 @@ public class PopulateGrid : MonoBehaviour
             Destroy(tchild.gameObject);
         }
     }
-
-
 }

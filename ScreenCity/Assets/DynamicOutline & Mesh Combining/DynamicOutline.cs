@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class DynamicOutline : MonoBehaviour {
-
+public class DynamicOutline : MonoBehaviour
+{
     [HideInInspector]
     public bool active = false;
 
