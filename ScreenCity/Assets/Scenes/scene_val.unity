@@ -4491,6 +4491,8 @@ MonoBehaviour:
   buildingsGameObject: {fileID: 1334174805}
   propsListItem: {fileID: 2431311461570793753, guid: a6577a1c62bf79b4997039efd341b4b5,
     type: 3}
+  propsCanvas: {fileID: 1730862427}
+  propsListParent: {fileID: 255117875}
 --- !u!4 &1820581236
 Transform:
   m_ObjectHideFlags: 0

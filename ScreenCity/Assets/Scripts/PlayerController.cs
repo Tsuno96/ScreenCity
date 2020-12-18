@@ -14,7 +14,9 @@ public class PlayerController : MonoBehaviour {
     public Camera playerCamera;
 
     public GameManager manager;
-    
+
+    public static Vector3 previewRotation = Vector3.zero;
+
     void Update() {
 
         #region Movement manager
@@ -38,7 +40,11 @@ public class PlayerController : MonoBehaviour {
 
         manager.mode.OnMouseClick();
 
+        if (Input.GetKeyDown(KeyCode.R)) {
+            previewRotation += new Vector3(0, 45, 0);
+        }
     }
+
 
     private void UpdateCubeSize(Vector3 size) {
         //previewCube.transform.localScale = size;

@@ -20,6 +20,9 @@ public class GameManager : MonoBehaviour {
 
     public static BuildingObject currentProps { get; set; }
 
+    public GameObject propsCanvas;
+    public Transform propsListParent;
+
     public enum GameModes {
         Move,
         Add_Object,
@@ -34,10 +37,9 @@ public class GameManager : MonoBehaviour {
 
         mode = new Move_Mode(this);
 
-        Transform scrollView = GameObject.Find("Content").transform.Find("ListProps");
 
         for (int i = 0; i < props.Count; i ++) {
-            GameObject listProps = Instantiate(propsListItem, scrollView);
+            GameObject listProps = Instantiate(propsListItem, propsListParent);
 
             Text t = listProps.GetComponentInChildren<Text>();
 
@@ -54,6 +56,7 @@ public class GameManager : MonoBehaviour {
 
             t.text = props[i].name;
         }
+        propsCanvas.SetActive(false);
     }
 
     public void SetGameMode_Move() {
@@ -66,6 +69,7 @@ public class GameManager : MonoBehaviour {
         SetGameMode(GameModes.Add_Object, screen);
     }
     public void SetGameMode_AddProps() {
+        propsCanvas.SetActive(true);
         SetGameMode(GameModes.Add_Object, currentProps);
     }
     public void SetGameMode_Remove() {
@@ -85,7 +89,7 @@ public class GameManager : MonoBehaviour {
         else if(mode.MODE != GameModes.Material)
         {
             MaterialMGR.Instance.ClearUI();
-        }
+        }        
 
         switch (m) {
             case GameModes.Add_Object:

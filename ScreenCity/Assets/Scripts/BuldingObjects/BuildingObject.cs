@@ -14,6 +14,8 @@ public abstract class BuildingObject : MonoBehaviour {
         return Quaternion.identity;
     }
 
+    public virtual void Update() { }
+
     public static void ToFadeMode(Material material) {
         material.SetOverrideTag("RenderType", "Transparent");
         material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);

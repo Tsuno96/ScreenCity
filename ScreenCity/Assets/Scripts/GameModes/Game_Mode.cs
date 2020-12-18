@@ -13,4 +13,5 @@ public abstract class Game_Mode {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         return Physics.Raycast(ray, out hit, maxDistance);
     }
+
 }

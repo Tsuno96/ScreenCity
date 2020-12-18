@@ -9,10 +9,10 @@ public class PropsItem : MonoBehaviour {
         g.transform.localScale = new Vector3(1, 1, 1);
 
         GameObject gmGO = GameObject.Find("GameManager");
-        if(gmGO != null) {
+        GameManager.currentProps = g.GetComponent<BuildingObject>();
+        if (gmGO != null) {
             GameManager gm = gmGO.GetComponent<GameManager>();
             gm.SetGameMode_AddProps();
         }
-        GameManager.currentProps = g.GetComponent<BuildingObject>();
     }
 }
