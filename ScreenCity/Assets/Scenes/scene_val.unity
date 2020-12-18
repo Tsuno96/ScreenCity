@@ -163,12 +163,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1055448695}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &49639949 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1033474054, guid: b051cd7b7bca0794ba48a8736fc867ab,
-    type: 3}
-  m_PrefabInstance: {fileID: 1055448695}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &77706851
 GameObject:
   m_ObjectHideFlags: 0
@@ -1123,32 +1117,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 656142965}
   m_CullTransparentMesh: 0
---- !u!114 &705238018
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 1593309051279868170, guid: 71a53a740c69e36489b4a7444c37646e,
-    type: 3}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 127bbf24586a5354499ebca940a6d4e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lstMaterials: []
-  currentMaterial: {fileID: 0}
-  SliderR: {fileID: 0}
-  SliderG: {fileID: 0}
-  SliderB: {fileID: 0}
-  SliderA: {fileID: 0}
-  SliderM: {fileID: 0}
-  SliderS: {fileID: 0}
-  colmat: {r: 0, g: 0, b: 0, a: 0}
-  GOExemple: {fileID: 0}
-  GOPanelCreate: {fileID: 0}
-  GOGridCustom: {fileID: 0}
-  customMaterials: []
 --- !u!1 &747462919
 GameObject:
   m_ObjectHideFlags: 0
@@ -1671,6 +1639,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 907136663}
   m_CullTransparentMesh: 0
+--- !u!1 &911867801 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3262258418610028175, guid: b051cd7b7bca0794ba48a8736fc867ab,
+    type: 3}
+  m_PrefabInstance: {fileID: 1055448695}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &922793917 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3262258418443771410, guid: b051cd7b7bca0794ba48a8736fc867ab,
@@ -1960,19 +1934,40 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1033474054, guid: b051cd7b7bca0794ba48a8736fc867ab, type: 3}
+      propertyPath: m_Name
+      value: GridButton
+      objectReference: {fileID: 0}
     - target: {fileID: 1033474056, guid: b051cd7b7bca0794ba48a8736fc867ab, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 705238018}
+      objectReference: {fileID: 1119146718}
+    - target: {fileID: 1033474056, guid: b051cd7b7bca0794ba48a8736fc867ab, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: showGrid
+      objectReference: {fileID: 0}
+    - target: {fileID: 1612795979, guid: b051cd7b7bca0794ba48a8736fc867ab, type: 3}
+      propertyPath: m_Name
+      value: CreateButton
+      objectReference: {fileID: 0}
     - target: {fileID: 1612795981, guid: b051cd7b7bca0794ba48a8736fc867ab, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 705238018}
+      objectReference: {fileID: 1119146718}
+    - target: {fileID: 1612795981, guid: b051cd7b7bca0794ba48a8736fc867ab, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: showPanel
+      objectReference: {fileID: 0}
     - target: {fileID: 3262258417106295304, guid: b051cd7b7bca0794ba48a8736fc867ab,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 705238018}
+      objectReference: {fileID: 1119146718}
+    - target: {fileID: 3262258417106295304, guid: b051cd7b7bca0794ba48a8736fc867ab,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CreateMaterial
+      objectReference: {fileID: 0}
     - target: {fileID: 3262258417271504680, guid: b051cd7b7bca0794ba48a8736fc867ab,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -1987,7 +1982,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 705238018}
+      objectReference: {fileID: 1119146718}
+    - target: {fileID: 3262258417424507326, guid: b051cd7b7bca0794ba48a8736fc867ab,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: colorMaterial
+      objectReference: {fileID: 0}
     - target: {fileID: 3262258417575655193, guid: b051cd7b7bca0794ba48a8736fc867ab,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -2007,12 +2007,22 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 705238018}
+      objectReference: {fileID: 1119146718}
+    - target: {fileID: 3262258417697104372, guid: b051cd7b7bca0794ba48a8736fc867ab,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: colorMaterial
+      objectReference: {fileID: 0}
     - target: {fileID: 3262258417742272499, guid: b051cd7b7bca0794ba48a8736fc867ab,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 705238018}
+      objectReference: {fileID: 1119146718}
+    - target: {fileID: 3262258417742272499, guid: b051cd7b7bca0794ba48a8736fc867ab,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChooseMaterial
+      objectReference: {fileID: 0}
     - target: {fileID: 3262258417829538117, guid: b051cd7b7bca0794ba48a8736fc867ab,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -2057,7 +2067,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 705238018}
+      objectReference: {fileID: 1119146718}
+    - target: {fileID: 3262258417972995456, guid: b051cd7b7bca0794ba48a8736fc867ab,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: colorMaterial
+      objectReference: {fileID: 0}
     - target: {fileID: 3262258418013482588, guid: b051cd7b7bca0794ba48a8736fc867ab,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -2092,12 +2107,22 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 705238018}
+      objectReference: {fileID: 1119146718}
+    - target: {fileID: 3262258418381293020, guid: b051cd7b7bca0794ba48a8736fc867ab,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChooseMaterial
+      objectReference: {fileID: 0}
     - target: {fileID: 3262258418443771410, guid: b051cd7b7bca0794ba48a8736fc867ab,
         type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 705238018}
+      objectReference: {fileID: 1119146718}
+    - target: {fileID: 3262258418443771410, guid: b051cd7b7bca0794ba48a8736fc867ab,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: metallicSmoothnessMaterial
+      objectReference: {fileID: 0}
     - target: {fileID: 3262258418485727995, guid: b051cd7b7bca0794ba48a8736fc867ab,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -2107,6 +2132,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3262258418610028174, guid: b051cd7b7bca0794ba48a8736fc867ab,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.0000038146973
+      objectReference: {fileID: 0}
+    - target: {fileID: 3262258418610028174, guid: b051cd7b7bca0794ba48a8736fc867ab,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 337
       objectReference: {fileID: 0}
     - target: {fileID: 3262258418723836661, guid: b051cd7b7bca0794ba48a8736fc867ab,
         type: 3}
@@ -2127,7 +2162,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 705238018}
+      objectReference: {fileID: 1119146718}
+    - target: {fileID: 3262258418761322576, guid: b051cd7b7bca0794ba48a8736fc867ab,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChooseMaterial
+      objectReference: {fileID: 0}
     - target: {fileID: 3262258418827865351, guid: b051cd7b7bca0794ba48a8736fc867ab,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -2137,7 +2177,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 705238018}
+      objectReference: {fileID: 1119146718}
+    - target: {fileID: 3262258418835252128, guid: b051cd7b7bca0794ba48a8736fc867ab,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: metallicSmoothnessMaterial
+      objectReference: {fileID: 0}
     - target: {fileID: 3262258418939979485, guid: b051cd7b7bca0794ba48a8736fc867ab,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -2147,7 +2192,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 705238018}
+      objectReference: {fileID: 1119146718}
+    - target: {fileID: 3262258418978352246, guid: b051cd7b7bca0794ba48a8736fc867ab,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: colorMaterial
+      objectReference: {fileID: 0}
     - target: {fileID: 3262258418992513285, guid: b051cd7b7bca0794ba48a8736fc867ab,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2415,12 +2465,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1065073019}
   m_CullTransparentMesh: 0
---- !u!1 &1119146717 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1593309051279868149, guid: 71a53a740c69e36489b4a7444c37646e,
+--- !u!114 &1119146718 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1593309051279868170, guid: 71a53a740c69e36489b4a7444c37646e,
     type: 3}
   m_PrefabInstance: {fileID: 1371859288}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 127bbf24586a5354499ebca940a6d4e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1129741790 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3262258418978352246, guid: b051cd7b7bca0794ba48a8736fc867ab,
@@ -3039,8 +3095,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1119146717}
-        m_MethodName: 
+      - m_Target: {fileID: 1820581235}
+        m_MethodName: SetGameMode_Material
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3174,7 +3230,7 @@ PrefabInstance:
         type: 3}
       propertyPath: GOGridCustom
       value: 
-      objectReference: {fileID: 49639949}
+      objectReference: {fileID: 911867801}
     - target: {fileID: 1593309051279868171, guid: 71a53a740c69e36489b4a7444c37646e,
         type: 3}
       propertyPath: m_LocalPosition.x
